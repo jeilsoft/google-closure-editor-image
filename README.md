@@ -89,6 +89,28 @@ upload form, eg, you want to append a hidden token value to the form.
     // on error
     {"status": 1, "errorMsg": "Upload failed!"}
 
+Example (/upload) :
+    <?php
+        function getUniqueFileName() {
+            return strval(time());
+        }
+
+        $result = array("status" => 1, "errorMsg" => "Upload failed!");
+
+        if(isset($_FILES['file']) && !empty($_FILES['file']['name'])) { 
+            if(!eregi('image/', $_FILES['file']['type'])) { 
+//              echo 'The uploaded file is not an image please upload a valide file!'; 
+            } else {
+                $path = "upload/" . getUniqueFileName();
+                move_uploaded_file($_FILES["file"]["tmp_name"], $path);
+                $result = array("status" => 0, "imageUrl" => "/" . $path);    // imageUrl is your uploaded image's full url.
+            }
+        }
+
+        print(json_encode($result));
+    ?>
+
+
 ## TODO
 
  * uploading indicator

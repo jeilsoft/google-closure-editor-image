@@ -397,9 +397,12 @@ goog.editor.plugins.ImageDialog.prototype.onFileUploadSuccess_ = function(e) {
     var uploadedImage = this.dom.createDom(goog.dom.TagName.IMG,
                                            { id: 'uploaded-image',
                                              src: json.imageUrl});
+    var oldImage = goog.dom.getElement('uploaded-image');
+    if (oldImage != null)
+    	currTab.removeChild(oldImage);
     this.dom.appendChild(currTab, uploadedImage);
     this.syncOkButton_();
-    this.processOkAndClose();
+//    this.processOkAndClose();
   } else {
     var errorMsg = this.dom.createDom(goog.dom.TagName.SPAN,
                                       { style: 'color: red;'},
